@@ -24,7 +24,7 @@ class SalesGenerator():
                  nike_df: pandas.DataFrame,
                  min_sales: int,
                  max_sales: int,
-                 path='data/sales',
+                 path='../data/sales',
                  chance=2):
         """
         nike_df: Dataframe from NikeScrAPI.getData()

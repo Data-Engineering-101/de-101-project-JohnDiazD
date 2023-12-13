@@ -2,3 +2,4 @@
 scrapper/data
 scrapper/__pycache__
 scrapper/scrapper_env
+logs

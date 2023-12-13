@@ -21,7 +21,7 @@ max_sales={args.max_sales}
 #########""")
 
 # NOTE: for production set max_pages = 200
-nikeAPI = NikeScrAPI(max_pages=args.max_pages, path='data/products')
+nikeAPI = NikeScrAPI(max_pages=args.max_pages, path='../data/products')
 df = nikeAPI.getData()
 
 # Sales generator
