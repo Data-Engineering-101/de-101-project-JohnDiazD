@@ -25,7 +25,7 @@ with DAG(
     concurrency=1,
 ) as dag:
 
-    downloading_rates = PythonOperator(task_id="test1", python_callable=printar)
+    nike_scrapper = PythonOperator(task_id="test1", python_callable=printar)
 
     spark_transformation = SparkSubmitOperator(
         task_id="spark_transform",
@@ -41,4 +41,4 @@ with DAG(
         verbose=False
     )
 
-    downloading_rates  >> spark_transformation >> spark_sw_load
+    nike_scrapper  >> spark_transformation >> spark_sw_load

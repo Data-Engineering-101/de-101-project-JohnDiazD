@@ -45,8 +45,7 @@ In this phase, we will write necessary queries from the data warehouse. We will 
 2. For the Datawarehouse, put on a file the DDL statements that were used to create the tables
 3. For the Queries of the Datawarehouse, put on a file the Queries statements requested on the `Querying the Datawarehouse phase`
 
-[scrapper_readme]: ./scrapper/project_requirements.md
-[scrapper_folder]: ./scrapper
+
 
 ## Walkthrough
 
@@ -54,7 +53,7 @@ Final proyect implementing a PipeLine using  Apache + Airflow + Spark + Snowflak
 
 ![img](img/architecture.png)
 
-[pre_setup]: pre-setup.md
+
 
 ## Prerequisites
 
@@ -65,7 +64,7 @@ Final proyect implementing a PipeLine using  Apache + Airflow + Spark + Snowflak
 * Snowflake \
 
   * Create a new database named `NIKE`
-  * Execute `snowflake.sql` on snowflake; the schema name must be `NIKE`
+  * Execute [ddl.sql][sf_ddl] on snowflake; the schema name must be `NIKE`
   * Also don't forget to replace your snowflake credentials on the `nike_snowflake_load.py` file
 
 ### Step 1 - Spark Job
@@ -85,10 +84,48 @@ Final proyect implementing a PipeLine using  Apache + Airflow + Spark + Snowflak
 
 ### Step 2 - Extract Run Nike Scrapper
 
+- Check the [readme.md][scrapper_readme] document on scrapper [folder][scrapper_folder] to have some data ready for the `ingestion phase`
 
-
-### Step 3 - Go to airflow and run ETL DAG
+### Step 3 - RUN Airflow ETL DAG
 
 
 * Transform  \
   Transform task is going to call a submitSpark then this task will transform extracted data from previous step
+
+    ```py
+     spark_transformation = SparkSubmitOperator(
+        task_id="spark_transform",
+        application="/opt/bitnami/spark/workspace/nike_sparksql.py",
+        conn_id="spark_conn",
+        verbose=False
+    )
+  ```
+
+  Once the data has been transformed will be moved to an out folder 
+
+  `spark` > `app` > `extract` > `out` 
+  
+* Load data into snowFlake 
+
+  This task is going to load our processed data into snowFlake
+    ```py
+    spark_sw_load = SparkSubmitOperator(
+        task_id="spark_load",
+        application="/opt/bitnami/spark/workspace/nike_snowflake_load.py",
+        conn_id="spark_conn",
+        verbose=False
+    )
+    ```
+
+
+### Step 4 - Verify queries from snowflake DB
+
+ Finally we can execute our [queries][sf_queries] to verify all of them are working as expected.
+
+
+
+[scrapper_readme]: ./spark/app/extract/scrapper/README.md
+[scrapper_folder]: ./spark/app/extract/scrapper
+[pre_setup]: pre-setup.md
+[sf_queries]: ./snowflake/queries.sql
+[sf_ddl]: ./snowflake/ddl.sql
