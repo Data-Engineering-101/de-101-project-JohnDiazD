@@ -61,8 +61,6 @@ Final proyect implementing a PipeLine using  Apache + Airflow + Spark + Snowflak
 
 ### Step 0 - SnowFlake
 
-* Snowflake \
-
   * Create a new database named `NIKE`
   * Execute [ddl.sql][sf_ddl] on snowflake; the schema name must be `NIKE`
   * Also don't forget to replace your snowflake credentials on the `nike_snowflake_load.py` file
