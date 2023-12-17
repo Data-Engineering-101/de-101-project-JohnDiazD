@@ -47,3 +47,48 @@ In this phase, we will write necessary queries from the data warehouse. We will 
 
 [scrapper_readme]: ./scrapper/project_requirements.md
 [scrapper_folder]: ./scrapper
+
+## Walkthrough
+
+Final proyect implementing a PipeLine using  Apache + Airflow + Spark + Snowflake as datawarehouse
+
+![img](img/architecture.png)
+
+[pre_setup]: pre-setup.md
+
+## Prerequisites
+
+* Follow the [pre-setup guideline][pre_setup]
+
+### Step 0 - SnowFlake
+
+* Snowflake \
+
+  * Create a new database named `NIKE`
+  * Execute `snowflake.sql` on snowflake; the schema name must be `NIKE`
+  * Also don't forget to replace your snowflake credentials on the `nike_snowflake_load.py` file
+
+### Step 1 - Spark Job
+
+* On airflow: go to `Admin` > `Connections`
+  * `+`
+    * Conn Id: `spark_conn`
+    * Conn Type: `Spark`
+    * Host: `spark://spark-master`
+    * Port: `7077`
+* Import operator
+
+  ```py
+  from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
+  ```
+
+
+### Step 2 - Extract Run Nike Scrapper
+
+
+
+### Step 3 - Go to airflow and run ETL DAG
+
+
+* Transform  \
+  Transform task is going to call a submitSpark then this task will transform extracted data from previous step

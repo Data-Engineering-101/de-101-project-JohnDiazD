@@ -3,10 +3,10 @@ from pyspark.sql import SparkSession
 
 # Set options below
 sfOptions = {
-  "sfURL" : "https://mqazmvs-etb79250.snowflakecomputing.com",
-  "sfUser" : "jdiaz",
+  "sfURL" : "https://mdgzgmc-etb84499.snowflakecomputing.com",
+  "sfUser" : "jdiaz2",
   "sfPassword" : "Capgemini12",
-  "sfDatabase" : "FUNDAMENTALS_DB",
+  "sfDatabase" : "NIKE",
   "sfSchema" : "PUBLIC",
   "sfWarehouse" : "COMPUTE_WH"
 }

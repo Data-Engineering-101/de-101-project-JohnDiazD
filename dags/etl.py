@@ -34,4 +34,11 @@ with DAG(
         verbose=False
     )
 
-    downloading_rates  >> spark_transformation
+    spark_sw_load = SparkSubmitOperator(
+        task_id="spark_load",
+        application="/opt/bitnami/spark/workspace/nike_snowflake_load.py",
+        conn_id="spark_conn",
+        verbose=False
+    )
+
+    downloading_rates  >> spark_transformation >> spark_sw_load
